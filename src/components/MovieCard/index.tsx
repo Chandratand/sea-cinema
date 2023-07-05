@@ -7,6 +7,7 @@ interface MovieCardProps extends React.HTMLAttributes<HTMLDivElement> {
   aspectRatio?: "portrait" | "square";
   width?: number;
   height?: number;
+  coverOnly?: boolean;
 }
 
 const MovieCard = ({
@@ -14,6 +15,7 @@ const MovieCard = ({
   aspectRatio = "portrait",
   width,
   height,
+  coverOnly,
   className,
   ...props
 }: MovieCardProps) => {
@@ -31,12 +33,16 @@ const MovieCard = ({
           )}
         />
       </div>
-      <div className="space-y-1">
-        <h3 className="font-semibold uppercase leading-none">{movie.title}</h3>
-        <p className="text-sm font-medium text-muted-foreground">
-          {movie.age_rating}+
-        </p>
-      </div>
+      {!coverOnly && (
+        <div className="space-y-1">
+          <h3 className="font-semibold uppercase leading-none">
+            {movie.title}
+          </h3>
+          <p className="text-sm font-medium text-muted-foreground">
+            {movie.age_rating}+
+          </p>
+        </div>
+      )}
     </div>
   );
 };

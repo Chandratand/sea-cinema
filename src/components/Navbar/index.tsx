@@ -7,7 +7,7 @@ function Navbar() {
     <div className="flex-col md:flex">
       <div className="border-b">
         <div className="container flex h-16 items-center">
-          <div className="font-bold">Sea Cinema</div>
+          <p className="font-bold">Sea Cinema</p>
           <div className="ml-auto sm:hidden">
             <NavbarSheet />
           </div>

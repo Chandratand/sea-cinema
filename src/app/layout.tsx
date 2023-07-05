@@ -1,5 +1,5 @@
 import { Poppins } from "next/font/google";
-import Navbar from "@/components/Navbar";
+import Navigation from "@/components/Navigation";
 import "../styles/global.css";
 
 const poppins = Poppins({
@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <Navbar />
+        <Navigation />
         {children}
       </body>
     </html>

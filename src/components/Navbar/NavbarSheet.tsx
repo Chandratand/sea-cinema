@@ -21,7 +21,7 @@ const NavbarSheet = () => {
       <SheetTrigger>
         <Menu />
       </SheetTrigger>
-      <SheetContent className="w-[400px]">
+      <SheetContent className="w-screen">
         <div className="flex flex-col gap-2">
           <Link
             href="/"
