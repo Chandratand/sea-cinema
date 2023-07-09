@@ -1,5 +1,7 @@
 import { Poppins } from "next/font/google";
 import Navigation from "@/components/Navigation";
+import NextAuthProvider from "@/components/NextAuthProvider";
+import { Toaster } from "@/components/ui/toaster";
 import "../styles/global.css";
 
 const poppins = Poppins({
@@ -19,8 +21,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <Navigation />
-        {children}
+        <NextAuthProvider>
+          <Navigation />
+          {children}
+          <Toaster />
+        </NextAuthProvider>
       </body>
     </html>
   );

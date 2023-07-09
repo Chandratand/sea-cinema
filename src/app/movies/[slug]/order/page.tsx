@@ -1,6 +1,6 @@
 import slugify from "slugify";
 import { Badge } from "@/components/ui/badge";
-import { Movie } from "@/lib/data-types";
+import { Movie } from "../../../../lib/data-types";
 import SeatSelection from "./SeatSelection";
 
 async function getMovieDetail(slug: string): Promise<Movie> {

@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import slugify from "slugify";
-import { Movie } from "@/lib/data-types";
+import { Movie } from "../../lib/data-types";
 import MovieCard from "@/components/MovieCard";
 
 async function getData(): Promise<Movie[]> {

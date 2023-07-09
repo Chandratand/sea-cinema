@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { Movie } from "@/lib/data-types";
+import { Movie } from "../../lib/data-types";
 
 interface MovieCardProps extends React.HTMLAttributes<HTMLDivElement> {
   movie: Movie;

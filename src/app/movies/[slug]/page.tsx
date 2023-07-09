@@ -4,8 +4,8 @@ import slugify from "slugify";
 import MovieCard from "@/components/MovieCard";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
-import { Movie } from "@/lib/data-types";
-import { nominalFotmat } from "@/lib/formater";
+import { Movie } from "../../../lib/data-types";
+import { nominalFormat } from "@/lib/formater";
 import { cn } from "@/lib/utils";
 import "moment/locale/id";
 
@@ -68,7 +68,7 @@ const MovieDetail = async ({ params }: { params: { slug: string } }) => {
               {moment(movie?.release_date).format("DD MMMM YYYY")}
             </p>
             <p className="mb-4 text-xl font-semibold text-primary-foreground">
-              {nominalFotmat(movie?.ticket_price)}
+              {nominalFormat(movie?.ticket_price)}
             </p>
             <Link
               href={`/movies/${params.slug}/order`}

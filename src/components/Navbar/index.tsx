@@ -1,6 +1,6 @@
 import Link from "next/link";
+import AuthButton from "./AuthButton";
 import NavbarSheet from "./NavbarSheet";
-import { buttonVariants } from "@/components/ui/button";
 
 function Navbar() {
   return (
@@ -24,12 +24,7 @@ function Navbar() {
             >
               Movies
             </Link>
-            <Link
-              href="/login"
-              className={buttonVariants({ variant: "outline" })}
-            >
-              Login
-            </Link>
+            <AuthButton />
           </nav>
         </div>
       </div>

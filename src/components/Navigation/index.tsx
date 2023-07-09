@@ -6,7 +6,7 @@ import Navbar from "../Navbar";
 const Navigation = () => {
   const pathname = usePathname();
 
-  if (pathname === "/register" || pathname === "/login") {
+  if (pathname === "/sign-up" || pathname === "/sign-in") {
     return null;
   }
   return <Navbar />;

@@ -1,11 +1,11 @@
 "use client";
 
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { buttonVariants } from "../ui/button";
+import AuthButton from "./AuthButton";
 
 const NavbarSheet = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +18,7 @@ const NavbarSheet = () => {
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen} defaultOpen={false}>
-      <SheetTrigger>
+      <SheetTrigger aria-label="humberger-menu">
         <Menu />
       </SheetTrigger>
       <SheetContent className="w-screen">
@@ -35,12 +35,7 @@ const NavbarSheet = () => {
           >
             Movies
           </Link>
-          <Link
-            href="/login"
-            className={buttonVariants({ variant: "outline" })}
-          >
-            Login
-          </Link>
+          <AuthButton />
         </div>
       </SheetContent>
     </Sheet>

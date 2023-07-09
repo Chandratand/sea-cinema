@@ -1,4 +1,4 @@
-export function nominalFotmat(nominal: number): string {
+export function nominalFormat(nominal: number = 0): string {
   const formatter = new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",
