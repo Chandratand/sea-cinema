@@ -64,7 +64,7 @@ const MovieDetail = async ({ params }: { params: { slug: string } }) => {
               {nominalFormat(movie?.ticket_price)}
             </p>
             <Link
-              href={`/movies/${params.slug}/order`}
+              href={`/order/${params.slug}`}
               className={cn(buttonVariants({ variant: "secondary" }))}
             >
               Buy a Ticket
