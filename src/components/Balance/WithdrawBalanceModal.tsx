@@ -46,8 +46,6 @@ const WithdrawBalanceModal = () => {
     resolver: zodResolver(withdrawBalanceSchema),
     defaultValues: {
       amount: "",
-      bank: "",
-      accountNumber: "",
     },
   });
 
@@ -106,10 +104,7 @@ const WithdrawBalanceModal = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Bank</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
+                  <Select onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select your bank" />

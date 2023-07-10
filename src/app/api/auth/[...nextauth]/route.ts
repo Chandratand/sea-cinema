@@ -1,57 +1,48 @@
-import { PrismaClient } from "@prisma/client";
+/* eslint-disable no-param-reassign */
+import axios from "axios";
 import NextAuth, { NextAuthOptions } from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
-
-const prisma = new PrismaClient();
+import CredentialsProvider from "next-auth/providers/credentials";
 
 export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/sign-in",
   },
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID || "",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        username: { label: "username", type: "text", placeholder: "jsmith" },
+        password: { label: "password", type: "password" },
+      },
+      async authorize(credentials) {
+        try {
+          const res = await axios.post(`${process.env.BASE_URL}/api/sign-in`, {
+            username: credentials?.username,
+            password: credentials?.password,
+          });
+
+          if (res.data.data) {
+            return res.data.data;
+          }
+          throw new Error("Invalid Credentials");
+        } catch (error: any) {
+          if (error?.response?.data?.message) {
+            throw new Error(error.response.data.message);
+          }
+          throw new Error(error);
+        }
+      },
     }),
   ],
   callbacks: {
-    async session({ session }) {
-      const {
-        user: { email },
-      } = session;
-
-      const user = await prisma.user.findUnique({
-        where: {
-          email,
-        },
-      });
-
-      const updatedSession = {
-        ...session,
-        user: { ...session.user, ...user },
-      };
-
-      return updatedSession;
+    async jwt({ token, user }) {
+      return { ...token, ...user };
     },
-    async signIn({ profile }) {
-      try {
-        const userExist = await prisma.user.findUnique({
-          where: {
-            email: profile?.email,
-          },
-        });
-        if (!userExist) {
-          await prisma.user.create({
-            data: {
-              email: profile?.email || "",
-              name: profile?.name,
-            },
-          });
-        }
-        return true;
-      } catch (error) {
-        return false;
-      }
+    async session({ session, token }) {
+      return {
+        ...session,
+        user: token,
+      };
     },
   },
 };

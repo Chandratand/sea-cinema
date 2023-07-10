@@ -1,9 +1,10 @@
 import slugify from "slugify";
-import { Badge } from "@/components/ui/badge";
 import { Movie } from "../../../../lib/data-types";
-import SeatSelection from "./SeatSelection";
+import SeatSelect from "../../../../components/Transaction/SeatSelect";
 
-async function getMovieDetail(slug: string): Promise<Movie> {
+async function getMovieDetail(
+  slug: string
+): Promise<{ movie: Movie; unAvailableSeats: number[] }> {
   const res = await fetch("https://seleksi-sea-2023.vercel.app/api/movies");
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -14,27 +15,24 @@ async function getMovieDetail(slug: string): Promise<Movie> {
     (item: Movie) => slugify(item.title.replace(":", "")) === slug
   );
 
-  return movie;
+  const soldSeatRes = await fetch(
+    `${process.env.BASE_URL}/api/movies/${movie.id}/sold-seats`,
+    { cache: "no-cache" }
+  );
+  if (!soldSeatRes.ok) {
+    throw new Error("Failed to fetch data");
+  }
+  const soldSeat = await soldSeatRes.json();
+
+  return { movie, unAvailableSeats: soldSeat?.data };
 }
 
 const Order = async ({ params }: { params: { slug: string } }) => {
-  const movie = await getMovieDetail(params.slug);
+  const { movie, unAvailableSeats } = await getMovieDetail(params.slug);
 
   return (
-    <section className="container flex flex-wrap gap-10 py-4 pb-10">
-      <div className="flex flex-1 flex-col justify-center space-y-2 md:order-2">
-        <div className="flex items-start gap-2">
-          <h1 className="text-xl font-semibold tracking-tight sm:text-3xl">
-            {movie?.title}
-          </h1>
-          <Badge variant="destructive">{movie?.age_rating}+</Badge>
-        </div>
-        <p>{movie?.description}</p>
-      </div>
-      <div className="mx-auto mt-5 overflow-hidden">
-        <p className="mb-2 text-base font-bold">Select your Seat</p>
-        <SeatSelection />
-      </div>
+    <section className="container py-4 pb-10">
+      <SeatSelect movie={movie} unAvailableSeats={unAvailableSeats} />
     </section>
   );
 };

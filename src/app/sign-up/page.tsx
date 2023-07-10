@@ -1,11 +1,14 @@
 import Image from "next/image";
-import { getServerSession } from "next-auth";
+import Link from "next/link";
 import { redirect } from "next/navigation";
-import LoginImage from "../../../public/images/login-image.jpg";
+import { getServerSession } from "next-auth";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import registerImage from "../../../public/images/register-image.jpg";
+import SignUpForm from "./SignUpForm";
 import { authOptions } from "../api/auth/[...nextauth]/route";
-import SignInForm from "./SignInForm";
 
-const SignIn = async () => {
+const SignUp = async () => {
   const session = await getServerSession(authOptions);
 
   if (session) {
@@ -14,10 +17,19 @@ const SignIn = async () => {
 
   return (
     <div className="container relative grid h-screen flex-col items-center justify-center md:max-w-none md:grid-cols-2 md:px-0">
+      <Link
+        href="/login"
+        className={cn(
+          buttonVariants({ variant: "ghost" }),
+          "absolute right-4 top-4 md:right-8 md:top-8"
+        )}
+      >
+        Login
+      </Link>
       <div className="relative hidden h-full flex-col justify-end bg-muted p-10 text-white dark:border-r md:flex">
         <div className="absolute inset-0 bg-zinc-900 object-contain">
           <Image
-            src={LoginImage}
+            src={registerImage}
             alt="Auth Image"
             priority
             fill
@@ -36,17 +48,17 @@ const SignIn = async () => {
         <div className="mx-auto flex w-full flex-col justify-center space-y-6 p-2 sm:w-[350px]">
           <div className="flex flex-col space-y-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">
-              Welcome back
+              Create an account
             </h1>
             <p className="text-sm text-muted-foreground">
-              Enter your email and password to sign in
+              Enter your email below to create your account
             </p>
           </div>
-          <SignInForm />
+          <SignUpForm />
         </div>
       </div>
     </div>
   );
 };
 
-export default SignIn;
+export default SignUp;

@@ -1,6 +1,6 @@
 "use client";
 
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import {
   DropdownMenu,
@@ -9,11 +9,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { GoogleIcon } from "@/lib/icon";
-import { Avatar, AvatarImage } from "../ui/avatar";
-import { Button } from "../ui/button";
-import { Skeleton } from "../ui/skeleton";
 import { nominalFormat } from "@/lib/formater";
+import { cn } from "@/lib/utils";
+import { Button, buttonVariants } from "../ui/button";
+import { Skeleton } from "../ui/skeleton";
 
 const AuthButton = () => {
   const { data: session, status } = useSession();
@@ -24,9 +23,12 @@ const AuthButton = () => {
 
   if (status === "unauthenticated") {
     return (
-      <Button variant="outline" onClick={() => signIn("google")}>
-        <GoogleIcon className="mr-2 h-4 w-4" /> Continue With Google
-      </Button>
+      <Link
+        className={cn(buttonVariants({ variant: "outline" }))}
+        href="/sign-up"
+      >
+        Get Started
+      </Link>
     );
   }
 
@@ -34,9 +36,6 @@ const AuthButton = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline">
-          <Avatar className="mr-2 h-5 w-5">
-            <AvatarImage src={session?.user?.image || ""} />
-          </Avatar>
           {session?.user?.name} ({nominalFormat(session?.user?.balance)})
         </Button>
       </DropdownMenuTrigger>
@@ -44,6 +43,9 @@ const AuthButton = () => {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuItem asChild>
           <Link href="/balance">Top Up Balance</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/transactions">Transactions</Link>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => signOut()}>Sign Out</DropdownMenuItem>
       </DropdownMenuContent>

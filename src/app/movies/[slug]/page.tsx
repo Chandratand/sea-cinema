@@ -7,16 +7,6 @@ import { buttonVariants } from "@/components/ui/button";
 import { Movie } from "../../../lib/data-types";
 import { nominalFormat } from "@/lib/formater";
 import { cn } from "@/lib/utils";
-import "moment/locale/id";
-
-// export async function generateStaticParams() {
-//   const res = await fetch("https://seleksi-sea-2023.vercel.app/api/movies");
-//   const movies = await res.json();
-
-//   return movies.map((movie: Movie) => ({
-//     slug: slugify(movie.title),
-//   }));
-// }
 
 async function getMovieDetail(slug: string): Promise<Movie> {
   const res = await fetch("https://seleksi-sea-2023.vercel.app/api/movies");
@@ -34,11 +24,14 @@ async function getMovieDetail(slug: string): Promise<Movie> {
 
 const MovieDetail = async ({ params }: { params: { slug: string } }) => {
   const movie = await getMovieDetail(params.slug);
-  const bg = movie?.poster_url;
+  let bg = "";
+  if (movie.poster_url) {
+    bg = movie?.poster_url;
+  }
 
   return (
     <section
-      className="relative h-screen bg-cover bg-top before:absolute before:left-0 before:top-0 before:block before:h-full before:w-full before:bg-black/50 before:content-[''] sm:flex sm:max-h-[720px] sm:items-center"
+      className="relative min-h-screen bg-cover bg-top before:absolute before:left-0 before:top-0 before:block before:h-full before:w-full before:bg-black/50 before:content-[''] sm:flex sm:max-h-[720px] sm:items-center"
       style={{
         backgroundImage: `url(
           ${bg}

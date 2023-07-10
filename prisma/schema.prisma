@@ -13,10 +13,11 @@ datasource db {
 
 model User {
   id            Int           @id @default(autoincrement())
-  email         String        @unique
-  name          String?
-  birthDate     DateTime?     @db.Date
-  balance       Float?        @default(0)
+  username      String        @unique
+  password      String        
+  name          String
+  age           Int     
+  balance       Float         @default(0)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
   transactions  Transaction[]
@@ -26,8 +27,10 @@ model User {
 model Transaction {
   id                Int                 @id @default(autoincrement())
   movieID           Int
+  movieTitle        String
+  ticketPrice       Float
   ticketCount       Int
-  totalPay          Float
+  totalPrice        Float
   userId            Int
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
@@ -39,7 +42,7 @@ model Transaction {
 model TransactionDetail {
   id              Int          @id @default(autoincrement())
   transactionId   Int
-  seatNumber      String
+  seatNumber      Int
   transaction     Transaction  @relation(fields: [transactionId], references: [id])
   @@index([transactionId])
 }

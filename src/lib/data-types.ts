@@ -23,3 +23,16 @@ export interface TopUpBalanceMethod {
   logoSrc: string;
   title: string;
 }
+
+export interface Transactions {
+  id: number;
+  movieID: number;
+  movieTitle: string;
+  ticketPrice: number;
+  ticketCount: number;
+  totalPrice: number;
+  seatNumbers?: number[];
+  userId: number;
+  createdAt: string;
+  updatedAt: string;
+}
