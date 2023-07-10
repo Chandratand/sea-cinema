@@ -1,6 +1,6 @@
 import slugify from "slugify";
-import { Movie } from "../../../../lib/data-types";
-import SeatSelect from "../../../../components/Transaction/SeatSelect";
+import { Movie } from "../../../lib/data-types";
+import SeatSelect from "../../../components/Transaction/SeatSelect";
 
 async function getMovieDetail(
   slug: string
