@@ -33,11 +33,9 @@ const CreateTransactionAlert = ({
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>
-            Are you sure want to cancel tickets?
-          </AlertDialogTitle>
+          <AlertDialogTitle>Ticket Purchase Confirmation</AlertDialogTitle>
           <AlertDialogDescription>
-            Money will be refunded after cancelation
+            Make sure you have selected the correct number of tickets and movie.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
