@@ -17,6 +17,7 @@ export async function POST(req: NextRequest) {
       username,
     },
   });
+
   if (user) {
     if (user) {
       const passwordMatch = await bcrypt.compare(password, user.password);
@@ -25,7 +26,10 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    return NextResponse.json({ message: "Sign In Success", data: user });
+    return NextResponse.json(
+      { message: "Invalid Credentials" },
+      { status: 401 }
+    );
   }
   return NextResponse.json({ message: "Invalid Credentials" }, { status: 401 });
 }

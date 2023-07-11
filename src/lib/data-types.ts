@@ -9,11 +9,11 @@ export interface Movie {
 }
 
 export interface User {
-  name: string | null;
-  email: string;
-  image: string;
+  name: string;
+  username: string;
+  password: string;
   id: number;
-  birthDate: string;
+  age: number;
   balance: number;
   createdAt: string;
   updatedAt: string;

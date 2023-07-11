@@ -5,11 +5,10 @@ declare module "next-auth" {
   interface Session {
     user: {
       name: string;
-      email: string;
+      username: string;
       password: string;
-      image: string;
       id: number;
-      age: int;
+      age: number;
       balance: number;
       createdAt: string;
       updatedAt: string;
@@ -17,11 +16,24 @@ declare module "next-auth" {
   }
   interface User {
     name: string;
-    email: string;
+    username: string;
     password: string;
     image: string;
     id: number;
     age: int;
+    balance: number;
+    createdAt: string;
+    updatedAt: string;
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    name: string;
+    username: string;
+    password: string;
+    id: number;
+    age: number;
     balance: number;
     createdAt: string;
     updatedAt: string;
