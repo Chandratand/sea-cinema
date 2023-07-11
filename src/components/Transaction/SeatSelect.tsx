@@ -11,20 +11,29 @@ import { Movie } from "@/lib/data-types";
 import { nominalFormat } from "@/lib/formater";
 import CreateTransactionAlert from "./CreateTransactionAlert";
 
-const SeatSelect = ({
-  movie,
-  unAvailableSeats,
-}: {
-  movie: Movie;
-  unAvailableSeats: number[];
-}) => {
-  const { data: session } = useSession();
+const SeatSelect = ({ movie }: { movie: Movie }) => {
+  const { data: session, update } = useSession();
   const { toast } = useToast();
   const { replace } = useRouter();
 
   const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
+  const [unAvailableSeats, setUnAvailableSeats] = useState<number[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const getUnAvailableSeats = async () => {
+    try {
+      const res = await axios.get(`/api/movies/${movie.id}/sold-seats`);
+      setUnAvailableSeats(res.data.data);
+    } catch (error) {
+      setUnAvailableSeats([]);
+    }
+  };
+
+  useEffect(() => {
+    getUnAvailableSeats();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setTotalPrice(selectedSeats.length * movie.ticket_price);
@@ -50,6 +59,7 @@ const SeatSelect = ({
       setIsLoading(true);
       try {
         await axios.post("/api/transaction", requestBody);
+        update();
         replace("/transactions");
       } catch (error: any) {
         toast({

@@ -3,6 +3,7 @@
 import axios from "axios";
 import moment from "moment";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Transactions } from "@/lib/data-types";
 import { nominalFormat } from "@/lib/formater";
@@ -16,8 +17,9 @@ const TransactionCard = ({
   transaction: Transactions;
   onCancel?: (transactionId: number) => void;
 }) => {
+  const { update } = useSession();
   const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleCancelTransaction = async () => {
     setIsLoading(true);
@@ -29,6 +31,7 @@ const TransactionCard = ({
       if (onCancel) {
         onCancel(transaction.id);
       }
+      update();
     } catch (error) {
       toast({
         variant: "destructive",
