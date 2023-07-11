@@ -28,7 +28,7 @@ export const authOptions: NextAuthOptions = {
           });
 
           if (res.data.data) {
-            return res.data.data;
+            return { ...res.data.data };
           }
           throw new Error("Invalid Credentials");
         } catch (error: any) {
@@ -41,16 +41,16 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token }) {
-      return { ...token };
+    async jwt({ token, user }) {
+      return { ...token, ...user };
     },
     async session({ session, token }) {
-      const user = await prisma.user.findFirst({
+      const username = `${token.username}`;
+      const user = await prisma.user.findUnique({
         where: {
-          username: token.username,
+          username,
         },
       });
-
       const updatedSession = {
         ...token,
         ...user,

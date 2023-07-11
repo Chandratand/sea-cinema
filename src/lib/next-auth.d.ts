@@ -27,15 +27,15 @@ declare module "next-auth" {
   }
 }
 
-declare module "next-auth/jwt" {
-  interface JWT {
-    name: string;
-    username: string;
-    password: string;
-    id: number;
-    age: number;
-    balance: number;
-    createdAt: string;
-    updatedAt: string;
-  }
-}
+// declare module "next-auth/jwt" {
+//   interface JWT {
+//     name: string;
+//     username: string;
+//     password: string;
+//     id: number;
+//     age: number;
+//     balance: number;
+//     createdAt: string;
+//     updatedAt: string;
+//   }
+// }
