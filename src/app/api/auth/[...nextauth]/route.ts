@@ -1,9 +1,15 @@
 /* eslint-disable no-param-reassign */
+import { PrismaClient } from "@prisma/client";
 import axios from "axios";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
+const prisma = new PrismaClient();
+
 export const authOptions: NextAuthOptions = {
+  session: {
+    strategy: "jwt",
+  },
   pages: {
     signIn: "/sign-in",
   },
@@ -35,13 +41,24 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
-      return { ...token, ...user };
+    async jwt({ token }) {
+      return { ...token };
     },
     async session({ session, token }) {
+      const user = await prisma.user.findFirst({
+        where: {
+          username: token.username,
+        },
+      });
+
+      const updatedSession = {
+        ...token,
+        ...user,
+      };
+
       return {
         ...session,
-        user: token,
+        user: updatedSession,
       };
     },
   },

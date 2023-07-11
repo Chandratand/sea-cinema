@@ -39,7 +39,8 @@ const SeatSelect = ({
       selectedSeats,
     };
 
-    if (session?.user.age < movie.age_rating) {
+    const userAge = session?.user.age || 0;
+    if (userAge < movie.age_rating) {
       toast({
         variant: "destructive",
         title: "You can't buy this ticket!",
