@@ -20,7 +20,7 @@ declare module "next-auth" {
     password: string;
     image: string;
     id: number;
-    age: int;
+    age: number;
     balance: number;
     createdAt: string;
     updatedAt: string;
