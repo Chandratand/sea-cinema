@@ -42,7 +42,7 @@ const AuthButton = () => {
       <DropdownMenuContent className="w-52 ">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuItem asChild>
-          <Link href="/balance">Top Up Balance</Link>
+          <Link href="/balance">Balance</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link href="/transactions">Transactions</Link>

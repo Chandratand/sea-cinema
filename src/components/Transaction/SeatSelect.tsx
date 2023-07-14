@@ -20,13 +20,17 @@ const SeatSelect = ({ movie }: { movie: Movie }) => {
   const [unAvailableSeats, setUnAvailableSeats] = useState<number[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [seatLoading, setSeatLoading] = useState<boolean>(false);
 
   const getUnAvailableSeats = async () => {
+    setSeatLoading(true);
     try {
       const res = await axios.get(`/api/movies/${movie.id}/sold-seats`);
       setUnAvailableSeats(res.data.data);
     } catch (error) {
       setUnAvailableSeats([]);
+    } finally {
+      setSeatLoading(false);
     }
   };
 
@@ -101,6 +105,7 @@ const SeatSelect = ({ movie }: { movie: Movie }) => {
           selectedSeats={selectedSeats}
           onSeatChange={setSelectedSeats}
           unAvailableSeats={unAvailableSeats}
+          isLoading={seatLoading}
         />
       </div>
     </div>

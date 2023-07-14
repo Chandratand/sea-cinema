@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { Skeleton } from "../ui/skeleton";
 
 interface SeatProps {
   number?: number;
@@ -6,6 +7,7 @@ interface SeatProps {
   onSelect?: (number: number) => void;
   disabled?: boolean;
   isBooked?: boolean;
+  isLoading?: boolean;
   description?: string;
 }
 
@@ -15,6 +17,7 @@ const Seat = ({
   onSelect,
   disabled = false,
   isBooked = false,
+  isLoading = false,
   description,
 }: SeatProps) => {
   const seatStyle = cn(
@@ -31,14 +34,18 @@ const Seat = ({
 
   return (
     <div className="flex items-center justify-center gap-1">
-      <button
-        type="button"
-        disabled={disabled}
-        className={seatStyle}
-        onClick={handleClick}
-      >
-        {number}
-      </button>
+      {isLoading ? (
+        <Skeleton className="h-10 w-10 rounded-lg" />
+      ) : (
+        <button
+          type="button"
+          disabled={disabled}
+          className={seatStyle}
+          onClick={handleClick}
+        >
+          {number}
+        </button>
+      )}
       {description ? <p className="font-medium">{description}</p> : null}
     </div>
   );
