@@ -6,12 +6,14 @@ interface SeatSelectionProps {
   selectedSeats: number[];
   unAvailableSeats?: number[];
   onSeatChange: (updatedSeats: number[]) => void;
+  isLoading?: boolean;
 }
 
 const SeatSelection = ({
   selectedSeats,
   unAvailableSeats = [],
   onSeatChange,
+  isLoading = false,
 }: SeatSelectionProps) => {
   const handleSeatSelection = (seatIndex: number) => {
     const updatedSeats = [...selectedSeats];
@@ -45,6 +47,7 @@ const SeatSelection = ({
               unAvailableSeats.includes(index + 1) ||
               (selectedSeats.length > 5 && !selectedSeats.includes(index + 1))
             }
+            isLoading={isLoading}
           />
         ))}
         <div className="col-span-8">

@@ -1,34 +1,61 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Sea Cinema
 
-## Getting Started
+Sea Cinema is a web application designed to enhance the movie going experience by allowing customers to easily book movie tickets online. With Sea Cinema, users no longer have to wait in long queues to purchase tickets. This README provides an overview of the project, installation instructions, usage guidelines, and credits.
 
-First, run the development server:
+Developed using NextJS as a full-stack web application due to the small amount of time. Nextjs is very good at acting as a frontend because it supports server-side rendering to improve SEO. Besides being a frontend application, NextJS can also develop an API as a BE application.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Tech Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [Next.js](https://nextjs.org)
+- [Tailwind CSS](https://tailwindcss.com)
+- [Next Auth](https://next-auth.js.org/)
+- [Prisma](https://www.prisma.io/)
+- [Shadcn UI](https://ui.shadcn.com/)
+- [Planet Scale](https://planetscale.com/)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+To run Sea Cinema locally, follow these steps:
 
-## Learn More
+1. Clone the repository:
 
-To learn more about Next.js, take a look at the following resources:
+   \`git clone https://github.com/Chandratand/sea-cinema.git\`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Navigate to the project directory:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+   \`cd sea-cinema\`
 
-## Deploy on Vercel
+3. Install the dependencies:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   \`npm install\`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+4. Create a .env file in the root directory and provide the required environment variables:
+
+   \`\`\`
+   DATABASE_URL=your_database_url
+   NEXTAUTH_URL=http://localhost:3000
+   \`\`\`
+
+   Note: Replace \`your_database_url\` with the URL of your MySQL database.
+
+5. Start the development server:
+
+   \`npm run dev\`
+
+6. Open your browser and visit \`http://localhost:3000\` to access Sea Cinema.
+
+## Usage
+
+Sea Cinema provides a user-friendly interface for booking movie tickets. Follow the steps below to use the application:
+
+1. Navigate to the homepage of Sea Cinema.
+
+2. Browse the available movies and select the desired movie.
+
+3. Choose the preferred showtime and number of tickets. (you will need authentication first)
+
+4. Click Buy ticket button to buy tickets.
+
+5. Top up balance if the balance is not enough
+
+6. Will navigate to transaction page after buy ticket success and you can cancel ticket.
